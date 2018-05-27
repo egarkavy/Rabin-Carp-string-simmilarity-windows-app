@@ -1,0 +1,14 @@
+﻿  MainForm.cpp
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(164): error C2228: left of '.String' must have class/struct/union
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(164): error C2059: syntax error: '^'
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(166): error C2228: left of '.IgnoreCase' must have class/struct/union
+  d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(166): note: type is 'System::String ^'
+  d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(166): note: did you intend to use '->' instead?
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(166): error C2227: left of '->Checked' must point to class/struct/union/generic type
+  d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(166): note: type is 'unknown-type'
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(168): error C2065: 'pCopy': undeclared identifier
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(175): error C2065: 'pCopy': undeclared identifier
+d:\repositories\rabin-carp-simmilarity-desctop-app\rabincarpsimmilarity\rabincarpsimmilarity\mainform.h(178): error C2065: 'pCopy': undeclared identifier
