@@ -8,11 +8,11 @@ public:
 	//just a simle digit
 	int simple = 65713;
 	//digit < simple
-	int d = 52;
+	System::Numerics::BigInteger d;
 private:
-	int initConst(unsigned int strLength);
+	System::Numerics::BigInteger initConst(unsigned int strLength);
 
 	//Algorithm suggested by Rabin and Karp 
-	int getCircleHash(System::String ^string, int stringLength, int prevHash, int *calculated);
+	System::Numerics::BigInteger getCircleHash(System::String ^string, int stringLength, System::Numerics::BigInteger prevHash, System::Numerics::BigInteger* calculated);
 };
 

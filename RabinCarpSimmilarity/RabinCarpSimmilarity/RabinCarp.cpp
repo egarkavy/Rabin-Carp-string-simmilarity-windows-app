@@ -4,19 +4,21 @@
 #include <cstring>
 #include <stdio.h>
 
+using namespace System::Numerics;
+
 RabinCarp::RabinCarp()
 {
-	
+	d = 52;
 }
 
 int RabinCarp::simmilarity(System::String ^mainString, System::String ^substring)
 {
 	int mainStringLengh = mainString->Length;
 	int substringLength = substring->Length;
-	int calculatedConst = 0;
+	BigInteger calculatedConst = 0;
 
-	int hashOfsubstring = getCircleHash(substring, substringLength, 0, &calculatedConst);
-	int hashOfMainStringPiece = getCircleHash(mainString, substringLength, 0, &calculatedConst);
+	BigInteger hashOfsubstring = getCircleHash(substring, substringLength, 0, &calculatedConst);
+	BigInteger hashOfMainStringPiece = getCircleHash(mainString, substringLength, 0, &calculatedConst);
 
 	for (int i = 0; i < mainStringLengh - substringLength; i++) {
 		if (hashOfsubstring == hashOfMainStringPiece) {
@@ -26,15 +28,16 @@ int RabinCarp::simmilarity(System::String ^mainString, System::String ^substring
 				}
 			}
 		}
-		hashOfMainStringPiece = getCircleHash(mainString[i].ToString(), substringLength, hashOfMainStringPiece, &calculatedConst);
+		
+		hashOfMainStringPiece = getCircleHash(mainString->Substring(i), substringLength, hashOfMainStringPiece, &calculatedConst);
 	}
 	return -1;
 }
 
-int RabinCarp::initConst(unsigned int strLength)
+BigInteger RabinCarp::initConst(unsigned int strLength)
 {
 
-	int h = 1;
+	BigInteger h = 1;
 	for (unsigned int i = 1; i < strLength; i++) {
 		h = (h * d) % simple;
 	}
@@ -42,34 +45,36 @@ int RabinCarp::initConst(unsigned int strLength)
 	return h;
 }
 
-int RabinCarp::getCircleHash(System::String ^string, int stringLength, int prevHash, int * calculated)
+System::Numerics::BigInteger RabinCarp::getCircleHash(System::String ^string, int stringLength, BigInteger prevHash, BigInteger* calculated)
 {
 
-	if (*calculated == 0) {
+	if (*calculated == (long long)0) {
 		*calculated = initConst(stringLength);
 	}
 
-	if (prevHash == 0) {
-		int accomulator = 0;
+	if (prevHash == (long long)0) {
+		BigInteger accomulator = 0;
 		for (unsigned int i = 0; i < stringLength; i++) {
 			//prevHash += (d * prevHash + (int)string[i]) % simple;
-			accomulator += ((int)string[i]) * pow(d, stringLength - (i + 1));
+			
+			BigInteger power = d.Pow(d, stringLength - (i + 1));
+			accomulator = accomulator.Add(accomulator, (((int)string[i]) * power));
 		}
 
 		prevHash = accomulator % simple;
 
-		if (prevHash < 0) {
-			prevHash += simple;
+		if (prevHash < (long long)0) {
+			prevHash = prevHash.Add(prevHash, simple);
 		}
 
 		return prevHash;
 	}
 	else {
-
-		int hash = ((prevHash - (int)string[0] * *calculated) * d + (int)string[stringLength]) % simple;
+		BigInteger minusPrev = (prevHash.Subtract(prevHash, (int)string[0] * *calculated)) * d;
+		BigInteger hash = (minusPrev.Add(minusPrev, (int)string[stringLength])) % simple;
 		//int hash = (d * (prevHash - (int)string[0] * (*calculated)) + (int)string[stringLength]) % simple;
-		if (hash < 0) {
-			hash += simple;
+		if (hash < (long long)0) {
+			hash = hash.Add(hash, simple);
 		}
 
 		return hash;

@@ -20,6 +20,10 @@ namespace RabinCarpSimmilarity {
 	public:
 		RabinCarp ^rb;
 		System::String ^mainString;
+	private: System::Windows::Forms::Label^  IsEq;
+	public:
+
+	public:
 		System::String ^patternString;
 
 		MainForm(void)
@@ -31,8 +35,8 @@ namespace RabinCarpSimmilarity {
 			/**mainString = readFile("D:\\Repositories\\Rabin-carp-simmilarity-desctop-app\\RabinCarpSimmilarity\\Debug\\Main.txt");
 			*patternString = readFile("Pattern.txt");*/
 
-			mainString = "I wery big text";
-			patternString = "wery big";
+			mainString = "God willing I shall live to see you read these words to witness your astonishment and see your dark eyes widen and your jaw drop when you finally comprehend the injustice we poor Irish suffered in this present age How queer and foreign it must seem to you and all the coarse words and cruelty which I now relate are far away in ancient time";
+			patternString = "in this present age How queer and foreign it must seem to you and all the coarse words and cruelty which I now relate are far";
 
 			rb = gcnew RabinCarp();
 			
@@ -85,11 +89,12 @@ namespace RabinCarpSimmilarity {
 			this->IgnoreSeparationMarks = (gcnew System::Windows::Forms::CheckBox());
 			this->OriginalText = (gcnew System::Windows::Forms::RichTextBox());
 			this->Pattern = (gcnew System::Windows::Forms::RichTextBox());
+			this->IsEq = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// Test
 			// 
-			this->Test->Location = System::Drawing::Point(466, 343);
+			this->Test->Location = System::Drawing::Point(295, 259);
 			this->Test->Name = L"Test";
 			this->Test->Size = System::Drawing::Size(75, 23);
 			this->Test->TabIndex = 0;
@@ -119,25 +124,37 @@ namespace RabinCarpSimmilarity {
 			// 
 			// OriginalText
 			// 
-			this->OriginalText->Location = System::Drawing::Point(285, 13);
+			this->OriginalText->Location = System::Drawing::Point(212, 13);
 			this->OriginalText->Name = L"OriginalText";
 			this->OriginalText->Size = System::Drawing::Size(464, 96);
 			this->OriginalText->TabIndex = 3;
 			this->OriginalText->Text = L"Hello from spain";
+			this->OriginalText->TextChanged += gcnew System::EventHandler(this, &MainForm::OriginalText_TextChanged);
 			// 
 			// Pattern
 			// 
-			this->Pattern->Location = System::Drawing::Point(285, 115);
+			this->Pattern->Location = System::Drawing::Point(212, 115);
 			this->Pattern->Name = L"Pattern";
 			this->Pattern->Size = System::Drawing::Size(464, 96);
 			this->Pattern->TabIndex = 4;
 			this->Pattern->Text = L"";
+			this->Pattern->TextChanged += gcnew System::EventHandler(this, &MainForm::Pattern_TextChanged);
+			// 
+			// IsEq
+			// 
+			this->IsEq->AutoSize = true;
+			this->IsEq->Location = System::Drawing::Point(416, 218);
+			this->IsEq->Name = L"IsEq";
+			this->IsEq->Size = System::Drawing::Size(0, 13);
+			this->IsEq->TabIndex = 5;
+			this->IsEq->Click += gcnew System::EventHandler(this, &MainForm::label1_Click);
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(875, 408);
+			this->Controls->Add(this->IsEq);
 			this->Controls->Add(this->Pattern);
 			this->Controls->Add(this->OriginalText);
 			this->Controls->Add(this->IgnoreSeparationMarks);
@@ -158,35 +175,46 @@ private: System::Void Test_Click(System::Object^  sender, System::EventArgs^  e)
 	std::string mainCopy(copyArr);
 	patternString->copy(copyArr, *patternString->begin(), 0);
 	std::string patternCopy(copyArr);*/
-	
-	
-	System::String ^mCopy = mainString.
-	System::String ^pCopy = patternString->Copy();
+	System::String ^mCopy = mainString;
+	System::String ^pCopy = patternString;
 
 	if (IgnoreCase->Checked) {
-		mCopy = mainString->ToLower();
-		pCopy = patternString->ToLower();
+		mCopy = mCopy->ToLower();
+		pCopy = pCopy->ToLower();
 
 			/*std::transform(mainCopy.begin(), mainCopy.end(), mainCopy.begin(), ::tolower);
 			std::transform(patternCopy.begin(), patternCopy.end(), patternCopy.begin(), ::tolower);*/
 		}
 	if (IgnoreSeparationMarks->Checked) {
-			replaceAllMarks(mCopy);
-			replaceAllMarks(pCopy);
+		mCopy = replaceAllMarks(mCopy);
+		pCopy = replaceAllMarks(pCopy);
 		}
 
-	rb->simmilarity(mCopy, pCopy);
-		
+	int index = rb->simmilarity(mCopy, pCopy);
+	if (index > -1) {
+		IsEq->Text = "Строка совпала: индекс: " + index;
+	}
+	else {
+		IsEq->Text = "Совпадений нет";
+	}
 
 	}
 
-		 void replaceAllMarks(System::String ^str) {
-			 str = str->Replace('.', ',');
-			 str = str->Replace(',', ',');
-			 str = str->Replace('!', ',');
-			 str = str->Replace('?', ',');
-			 str = str->Replace(':', ',');
-			 str = str->Replace(';', ',');
+		 System::String^ replaceAllMarks(System::String ^str) {
+			 str = str->Replace(".", "");
+			 str = str->Replace(",", "");
+			 str = str->Replace("!", "");
+			 str = str->Replace("?", "");
+			 str = str->Replace(":", "");
+			 str = str->Replace(";", "");
+
+			 return str;
 		 }
+private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void Pattern_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void OriginalText_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }
