@@ -29,14 +29,10 @@ namespace RabinCarpSimmilarity {
 		MainForm(void)
 		{
 			InitializeComponent();
+			//*patternString = readFile("Pattern.txt");
 
-			
-
-			/**mainString = readFile("D:\\Repositories\\Rabin-carp-simmilarity-desctop-app\\RabinCarpSimmilarity\\Debug\\Main.txt");
-			*patternString = readFile("Pattern.txt");*/
-
-			mainString = "God willing I shall live to see you read these words to witness your astonishment and see your dark eyes widen and your jaw drop when you finally comprehend the injustice we poor Irish suffered in this present age How queer and foreign it must seem to you and all the coarse words and cruelty which I now relate are far away in ancient time";
-			patternString = "in this present age How queer and foreign it must seem to you and all the coarse words and cruelty which I now relate are far";
+			mainString = readFile(gcnew String("Main.txt"));
+			patternString = readFile(gcnew String("Pattern.txt"));
 
 			rb = gcnew RabinCarp();
 			

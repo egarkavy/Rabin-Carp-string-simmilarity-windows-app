@@ -2,5 +2,5 @@
 
 #include <iostream>
 
-std::string readFile(std::string path);
+System::String^ readFile(System::String ^path);
 

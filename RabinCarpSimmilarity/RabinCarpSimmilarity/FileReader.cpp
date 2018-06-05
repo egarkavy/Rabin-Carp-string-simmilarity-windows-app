@@ -3,23 +3,14 @@
 #include <fstream>
 #include <string>
 
-std::string readFile(std::string path)
+using namespace System::IO;
+
+System::String^ readFile(System::String^ path)
 {
+	StreamReader fileStream(path);
 
-	std::string accomulator = "";
-	std::ifstream file(path);
-	file >> accomulator;
-	//file.open(path, std::ifstream::in);
-	
-	if (file.is_open()) {
-		std::string temp = "";
-		while (std::getline(file, temp))
-		{
-			accomulator += temp;
-		}
-		file.close();
-	}
+	System::String^ text = fileStream.ReadToEnd();
 
-	return accomulator;
+	return text;
 
 }
